@@ -22,7 +22,9 @@ class Unsplash extends Component {
                     <Image source={{ uri:this.props.image }} style={styles.img} />
                 </View>
                 <View style={styles.viewContainer}>
-                    <Text style={{ fontSize:15 }}>Name: {this.resizeName(this.props.name)} </Text>
+                    <Text style={{ fontSize:15 }} onPress={this.props.onPress(this.props.name)}>
+                        Name: { this.resizeName(this.props.name) } 
+                    </Text>
                     <Text style={{ fontSize:12 }}>Likes: {this.props.likes} </Text>
                     <Text style={{ fontSize:12 }}>Created_at: {this.props.created_at} </Text>
                 </View>

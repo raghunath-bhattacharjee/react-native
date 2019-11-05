@@ -13,7 +13,7 @@ const SearchTabNavigator = TabNavigator({
     SearchTab:{
         screen: SearchTab
     },
-    FavouritsTab:{
+    AppInfo:{
         screen: FavouritsTab
     }
 },{
@@ -37,7 +37,7 @@ const SearchTabNavigator = TabNavigator({
                         onPress = { () => props.navigation.navigate('FavouritsTab') }
                     >
                         <Icon name="star" />
-                        <Text>Favourits</Text>
+                        <Text>AppInfo</Text>
                     </Button>
                 </Footertab>
             </Footer>

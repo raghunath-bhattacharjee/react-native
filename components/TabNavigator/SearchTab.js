@@ -48,8 +48,6 @@ class SearchTab extends Component {
     unSplashSearch = () => {
         Keyboard.dismiss();
         const beerName = this.state.searchBeer;
-        console.log(this.state.searchBeer);
-
         const query = `https://api.unsplash.com/search/photos/?client_id=c33a5ccd2f9f0e1b59437149c6281f2486724e8856130cfbe216104e3686ba2e&query=`+beerName;
         
         axios.get(query).then((responce) => {
@@ -68,11 +66,14 @@ class SearchTab extends Component {
         });
     }
 
+    onPress (event){
+        console.log(event);
+    }
+
     renderContent = () =>{
         var HorizontalView = [];
-        if (this.state.beerFound) {
+        if (this.state.beerFound && this.state.beerData.length > 0) {
             for( var i=0 ; i<this.state.beerData.length; i++){
-                console.log(this.state.beerData[i]);
                 HorizontalView.push(
                     <View key = {i}>
                         <Unsplash
@@ -82,6 +83,7 @@ class SearchTab extends Component {
                             likes={this.state.beerData[i].likes} 
                             image={this.state.beerData[i].urls.thumb} 
                             created_at={this.state.beerData[i].created_at} 
+                            onPress = { (event) => this.onPress(event) }
                         />
                     </View>
                 );
@@ -89,6 +91,11 @@ class SearchTab extends Component {
             return HorizontalView;
         } else {
             console.log("beer not found.");
+            return (
+                <View style={{flex:1, height:400,width:400,marginTop:150}}>
+                    <Text style={{textAlign: 'center'}}> Nothing Found </Text> 
+                </View>
+            );
         }
     }
 
@@ -107,7 +114,7 @@ class SearchTab extends Component {
                 />
                 <Content>
                     <View style={ styles.imageHorizontal }>
-                        { this.renderContent() }
+                        { this.renderContent()  }
                     </View>
                 </Content>
             </Container>
