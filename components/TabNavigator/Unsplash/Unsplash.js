@@ -34,7 +34,7 @@ class Unsplash extends Component {
                     </View>
                     <View style={styles.viewContainer}>
                         <View style={styles.textLikeView}>
-                            <Text style={{ fontSize:15 }} onPress={this.props.onPress(this.props.name)}>
+                            <Text style={{ fontSize:15 }}>
                                 Name : { this.resizeName(this.props.name) } 
                             </Text>
                             <Text style={{ fontSize:15 , marginLeft: 19}}>Total Likes : {this.props.likes} </Text>

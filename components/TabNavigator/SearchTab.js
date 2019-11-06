@@ -1,6 +1,6 @@
 import React,{ Component } from "react";
-import { View, Text, StyleSheet , Keyboard, Dimensions } from "react-native";
-import { Container, Content } from 'native-base';
+import { View, Text, StyleSheet , Keyboard, Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import { Container, Content, Button } from 'native-base';
 
 
 const { width } = Dimensions.get('window');
@@ -19,78 +19,53 @@ class SearchTab extends Component {
     state ={
         searchBeer: '',
         beerData: null,
-        beerFound: false
+        beerFound: false,
+        page: 0
     }
-
-    // beerSearch = () => {
-    //     Keyboard.dismiss();
-    //     const beerName = this.state.searchBeer;
-    //     console.log(this.state.searchBeer);
-
-    //     const query = `https://api.brewerydb.com/v2/search?q=`+ beerName +`&type=beer&key=a78ac36adc8cce0e2e41edea49958889`;
-        
-    //     axios.get(query).then((responce) => {
-    //         var data = responce.data.data ? responce.data.data : false;
-    //         if(data){
-    //             this.setState({
-    //                 beerData: data,
-    //                 beerFound: true
-    //             });
-    //         }
-    //     }).catch((error) => {
-    //         this.setState({
-    //             beerFound: false,
-    //             beerData: null
-    //         }) 
-    //     });
-    // }
 
     unSplashSearch = () => {
         Keyboard.dismiss();
         const beerName = this.state.searchBeer;
-        const query = `https://api.unsplash.com/search/photos/?client_id=c33a5ccd2f9f0e1b59437149c6281f2486724e8856130cfbe216104e3686ba2e&query=`+beerName;
+        const query = `https://api.unsplash.com/search/photos/?client_id=c33a5ccd2f9f0e1b59437149c6281f2486724e8856130cfbe216104e3686ba2e&query=`+beerName+'&page='+this.state.page;
         
         axios.get(query).then((responce) => {
+            
             var data = responce.data ? responce.data.results : false;
+            
             if(data){
                 this.setState({
-                    beerData: data,
+                    beerData: [...data],
                     beerFound: true
                 });
             }
         }).catch((error) => {
             this.setState({
                 beerFound: false,
-                beerData: null
-            }) 
+                beerData: null,
+            });
         });
     }
 
-    onPress (event){
-        console.log(event);
-    }
-
     renderContent = () =>{
-        var HorizontalView = [];
         if (this.state.beerFound && this.state.beerData.length > 0) {
-            for( var i=0 ; i<this.state.beerData.length; i++){
-                HorizontalView.push(
-                    <View key = {i}>
-                        <Unsplash
+            console.log(this.state.beerData.length);
+            var HorizontalView = this.state.beerData.map(function(beerData, index){
+                return(
+                    <View key = {index}>
+                        <Unsplash 
                             width={width}
-                            id={this.state.beerData[i].id} 
-                            name={this.state.beerData[i].user.first_name} 
-                            likes={this.state.beerData[i].likes} 
-                            image={this.state.beerData[i].urls.regular} 
-                            description={this.state.beerData[i].description} 
-                            onPress = { (event) => this.onPress(event) }
+                            id={beerData.id} 
+                            name={beerData.user.first_name} 
+                            likes={beerData.likes} 
+                            image={beerData.regular} 
+                            description={beerData.description} 
                         />
-                    </View>
+                    </View> 
                 );
-            }
+            });
+
             return HorizontalView;
         } else {
-            console.log("beer not found.");
             return (
                 <View style={{flex:1, height:400,width:400,marginTop:150}}>
                     <Text style={{textAlign: 'center'}}> Nothing Found </Text> 
@@ -104,6 +79,11 @@ class SearchTab extends Component {
         this.setState({searchBeer: text});
     }
 
+    scrollToEnd(){
+        this.state.page +=1;
+        this.renderContent();
+    }
+
     render(){
         return(
             <Container>
@@ -113,8 +93,13 @@ class SearchTab extends Component {
                     beerSearch = {this.unSplashSearch}
                 />
                 <Content>
-                    <View style={ styles.imageHorizontal }>
-                        { this.renderContent()  }
+                    <View style={ styles.mainContainer }>
+                        { this.renderContent()  }   
+                    </View>
+                    <View>
+                    <Button block={true} onPress={ () => this.scrollToEnd() }>
+                        <Text style={{color: 'white'}}> Load more... </Text>
+                    </Button>
                     </View>
                 </Content>
             </Container>
@@ -123,7 +108,7 @@ class SearchTab extends Component {
 }
 
 const styles = StyleSheet.create({
-    imageHorizontal: { 
+    mainContainer: { 
         marginTop:20 , 
         marginBottom:8, 
         flexDirection: 'row', 
