@@ -8,11 +8,11 @@ class SearchHeader extends Component {
     }
     render(){
         return(
-            <Header searchBar rounded style={{ height: 80 }}>
+            <Header searchBar rounded style={{ height: 80, }}>
                 <Item>
                     <Icon name="ios-search" />
                     <Input
-                        placeholder="Please type a url"
+                        placeholder="Please type a keyword "
                         returnKeyType="search"
                         onChange={this.props.onChangeText}
                         onSubmitEditing={this.props.beerSearch}

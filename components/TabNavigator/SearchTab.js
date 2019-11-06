@@ -81,8 +81,8 @@ class SearchTab extends Component {
                             id={this.state.beerData[i].id} 
                             name={this.state.beerData[i].user.first_name} 
                             likes={this.state.beerData[i].likes} 
-                            image={this.state.beerData[i].urls.thumb} 
-                            created_at={this.state.beerData[i].created_at} 
+                            image={this.state.beerData[i].urls.regular} 
+                            description={this.state.beerData[i].description} 
                             onPress = { (event) => this.onPress(event) }
                         />
                     </View>
@@ -123,13 +123,14 @@ class SearchTab extends Component {
 }
 
 const styles = StyleSheet.create({
-    imageHorizontal: {
-        paddingHorizontal:20, 
+    imageHorizontal: { 
         marginTop:20 , 
-        marginBottom:5, 
+        marginBottom:8, 
         flexDirection: 'row', 
         flexWrap:'wrap', 
-        justifyContent: 'space-between'
+        justifyContent: 'center',
+        padding:0,
+        margin:0
     }
 });
 
