@@ -6,7 +6,7 @@ class Category extends Component {
         return(
             <View style={styles.mainCOntainer}>
                 <View style={{flex:2}}>
-                    <Image source={this.props.imageUrl} style={styles.img}/>
+                    <Image source={{ uri:this.props.imageUrl }} style={styles.img}/>
                 </View>
                 <View style={styles.name}>
                     <Text> {this.props.name} </Text>

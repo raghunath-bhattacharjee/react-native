@@ -21,9 +21,11 @@
     "react-native-progress": "^4.0.1",
     "react-native-prompt-android": "^1.1.0",
     "react-native-star-rating": "^1.1.0",
+    "react-native-vector-icons": "^6.6.0",
     "react-native-web": "^0.11.7",
     "react-navigation": "^2.0.4",
-    "react-navigation-stack": "^1.10.3"
+    "react-navigation-stack": "^1.10.3",
+    "rn-fetch-blob": "^0.11.2"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.1.0"

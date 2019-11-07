@@ -1,5 +1,5 @@
 import React,{ Component } from "react";
-import { View, Text, StyleSheet , Keyboard, Dimensions } from "react-native";
+import { View, Text, StyleSheet , Keyboard, Dimensions ,ActivityIndicator } from "react-native";
 import { Container, Content, Button } from 'native-base';
 import SearchHeader from './SearchHeader';
 import axios from "axios";
@@ -10,18 +10,20 @@ import Unsplash from './Unsplash/Unsplash';
 const { width } = Dimensions.get('window');
 
 class SearchTab extends Component {
-    static navigationOptions = {
-        header: null
-    }
-
     state ={
         searchBeer: '',
         beerData: null,
         beerFound: false,
-        page: 0
+        page: 1,
+        showLoadMoreBtn: false,
+        isProgressButton: false,
+        isProgressHome: false
     }
 
     unSplashSearch = () => {
+
+        this.setState({isProgressHome: true});
+
         Keyboard.dismiss();
         const beerName = this.state.searchBeer;
         console.log(this.state.page);
@@ -31,6 +33,15 @@ class SearchTab extends Component {
 
     callApi(query){
         axios.get(query).then((responce) => {
+            if (responce.data.total_pages > 1) {
+                this.setState({showLoadMoreBtn: true});
+            } else {
+                this.setState({showLoadMoreBtn: false});
+            }
+            
+            this.setState({isProgressHome: false, isProgressButton: false});
+
+
             var data = responce.data ? responce.data.results : false;
             this.populateData(data);
         }).catch((error) => {
@@ -57,7 +68,7 @@ class SearchTab extends Component {
             searchBeer: '',
             beerData: null,
             beerFound: false,
-            page: 0
+            page: 1
         });
     }
 
@@ -70,7 +81,7 @@ class SearchTab extends Component {
                         <Unsplash 
                             width={width}
                             id={beerData.id} 
-                            name={beerData.user.name} 
+                            name={beerData.user.first_name} 
                             likes={beerData.likes} 
                             image={beerData.urls.regular} 
                             description={beerData.description} 
@@ -83,7 +94,12 @@ class SearchTab extends Component {
         } else {
             return (
                 <View style={{flex:1,marginTop:150}}>
-                    <Text style={{textAlign: 'center'}}> Nothing Found </Text> 
+                    { 
+                        this.state.isProgressHome ? 
+                        <ActivityIndicator size="large" color="#0000ff" /> 
+                        : 
+                        <Text style={{textAlign: 'center'}}> Nothing Found </Text>
+                    } 
                 </View>
             );
         }
@@ -91,12 +107,16 @@ class SearchTab extends Component {
 
     textChange(event){
         const { text} = event.nativeEvent;
+        if (this.state.beerName != text) {
+            this.resetSatetData();
+        }
         this.setState({searchBeer: text});
     }
 
-    scrollToEnd(){
+    loadMore(){
         this.state.page +=1;
         this.unSplashSearch();
+        this.setState({isProgressButton: true});
     }
 
     render(){
@@ -114,8 +134,9 @@ class SearchTab extends Component {
                     <View>
 
                     {
-                        this.state.beerFound ?  
-                            <Button block={true} onPress={ () => this.scrollToEnd() }>
+                        this.state.showLoadMoreBtn && this.state.beerFound ?  
+                            <Button block={true} onPress={ () => this.loadMore() }  style={{ backgroundColor:'#03a9f4' }}>
+                                { this.state.isProgressButton ? <ActivityIndicator size="large" color="white" /> : null}
                                 <Text style={{color: 'white'}}> Load more... </Text>
                             </Button>
                         :

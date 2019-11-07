@@ -10,10 +10,10 @@ import { Footer, Footertab, Button, Icon } from 'native-base';
 
 
 const SearchTabNavigator = TabNavigator({
-    SearchTab:{
+    Search:{
         screen: SearchTab
     },
-    AppInfo:{
+    Info:{
         screen: FavouritsTab
     }
 },{
@@ -42,6 +42,16 @@ const SearchTabNavigator = TabNavigator({
                 </Footertab>
             </Footer>
         )
+    }
+},{
+    tabBarOptions: {
+        activeTintColor: '#e91e63',
+        labelStyle: {
+          fontSize: 12,
+        },
+        style: {
+          backgroundColor: 'blue',
+        },
     }
 });
 

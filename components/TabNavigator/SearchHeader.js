@@ -3,12 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 import { Header, Item, Icon, Input} from 'native-base';
 
 class SearchHeader extends Component {
-    static navigationOptions = {
-        header: null
-    }
     render(){
         return(
-            <Header searchBar rounded style={{ height: 80, }}>
+            <Header searchBar rounded style={{ height: 80, backgroundColor:'#2F9FD3'}}>
                 <Item>
                     <Icon name="ios-search" />
                     <Input

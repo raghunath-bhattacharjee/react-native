@@ -1,12 +1,13 @@
 import React,{ Component } from "react";
-import {View,Text,StyleSheet,Image} from "react-native";
-import { Card } from 'native-base';
+import {View,Text,StyleSheet,Image, RNFetchBlob, PermissionsAndroid} from "react-native";
+import { Card, Right } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Unsplash extends Component {
 
     resizeName(name){
-        if(name.length > 30){
-            name = name.substring(1, 30) + '...';
+        if(name.length > 10){
+            name = name.substring(1, 20) + '...';
         }
         return name;
     }
@@ -24,6 +25,29 @@ class Unsplash extends Component {
         );
     }
 
+    download( url ){
+        PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+              title: "Storage",
+              message: "This app would like to store some files on your phone"
+            }
+        ).then(() => {
+            let dirs =`/storage/emulated/0/app/assets/`;
+            RNFetchBlob.config({
+                path: dirs + '/'+this.props.name+'.png',
+                fileCache: true
+            }).fetch("GET",url, {})
+                .then(res => {
+                    console.log("res.data============================", res.data);
+                })
+                .catch(err => {
+                    console.log("Error ", err);
+                });
+            }
+        )
+    }
+    
     render(){
         return(
             <Card>
@@ -36,11 +60,14 @@ class Unsplash extends Component {
                             <Text style={{ fontSize:15 }}>
                                 Name : { this.resizeName(this.props.name) } 
                             </Text>
-                            <Text style={{ fontSize:15 , marginLeft: 19}}>Total Likes : {this.props.likes} </Text>
+                            <Right onPress={ () => this.download(this.props.image) } style={{fontSize:15,marginLeft:53}}>
+                               <Text>Download : <Icon name="download" size={16} color="black" /></Text>
+                            </Right>
                         </View>
-                        <Text style={{ fontSize:12 }}>
+                        <Text style={{ fontSize:12, paddingTop:9, paddingBottom:9 }}>
                             Description: { this.props.description ? this.resizeDescription(this.props.description) : this.defaultDescription() }
                         </Text>
+                        <Text style={{ fontSize:15}}>Likes : {this.props.likes} </Text>
                     </View>
                 </View>
             </Card>
@@ -60,7 +87,7 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'flex-start', 
         justifyContent: 'space-evenly', 
-        padding:10,
+        padding:20,
     },
 
     textLikeView: {
