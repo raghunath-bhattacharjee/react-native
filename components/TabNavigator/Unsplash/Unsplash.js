@@ -1,7 +1,6 @@
 import React,{ Component } from "react";
 import {View,Text,StyleSheet,Image} from "react-native";
-
-import { Card, CardItem, Left } from 'native-base';
+import { Card } from 'native-base';
 
 class Unsplash extends Component {
 
@@ -19,7 +18,7 @@ class Unsplash extends Component {
         return desc;
     }
 
-    description(){
+    defaultDescription(){
         return(
             "I shot this while doing a job for a luxury automotive storage facility in Baltimore, MD. I wanted to create an ominous sense of intrigue, giving the feeling of a space that was both expansive and enclosed. I enjoy the journey my eyes take from the focal point of the headlamps to the contours of the Camero’s body, and then to the backdrop of stacked automobiles."
         );
@@ -39,7 +38,9 @@ class Unsplash extends Component {
                             </Text>
                             <Text style={{ fontSize:15 , marginLeft: 19}}>Total Likes : {this.props.likes} </Text>
                         </View>
-                        <Text style={{ fontSize:12 }}>Description: { this.props.description ? this.resizeDescription(this.props.description) : this.description() } </Text>
+                        <Text style={{ fontSize:12 }}>
+                            Description: { this.props.description ? this.resizeDescription(this.props.description) : this.defaultDescription() }
+                        </Text>
                     </View>
                 </View>
             </Card>

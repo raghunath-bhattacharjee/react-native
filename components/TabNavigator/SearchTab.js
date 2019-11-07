@@ -1,15 +1,13 @@
 import React,{ Component } from "react";
-import { View, Text, StyleSheet , Keyboard, Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet , Keyboard, Dimensions } from "react-native";
 import { Container, Content, Button } from 'native-base';
+import SearchHeader from './SearchHeader';
+import axios from "axios";
+import SearchBody from './SearchBody';
+import Unsplash from './Unsplash/Unsplash';
 
 
 const { width } = Dimensions.get('window');
-import SearchHeader from './SearchHeader';
-import axios from "axios";
-
-import SearchBody from './SearchBody';
-
-import Unsplash from './Unsplash/Unsplash';
 
 class SearchTab extends Component {
     static navigationOptions = {
@@ -26,23 +24,40 @@ class SearchTab extends Component {
     unSplashSearch = () => {
         Keyboard.dismiss();
         const beerName = this.state.searchBeer;
+        console.log(this.state.page);
         const query = `https://api.unsplash.com/search/photos/?client_id=c33a5ccd2f9f0e1b59437149c6281f2486724e8856130cfbe216104e3686ba2e&query=`+beerName+'&page='+this.state.page;
-        
+        this.callApi(query);
+    }
+
+    callApi(query){
         axios.get(query).then((responce) => {
-            
             var data = responce.data ? responce.data.results : false;
-            
-            if(data){
-                this.setState({
-                    beerData: [...data],
-                    beerFound: true
-                });
-            }
+            this.populateData(data);
         }).catch((error) => {
+            this.resetSatetData();
+        });
+    }
+
+    populateData(data){
+        if(data && data.length > 0){
+            if (this.state.beerData) {
+                data = [...this.state.beerData,...data];
+            }
             this.setState({
-                beerFound: false,
-                beerData: null,
+                beerData: data,
+                beerFound: true
             });
+        } else {
+            this.resetSatetData();
+        }
+    }
+
+    resetSatetData(){
+        this.setState({
+            searchBeer: '',
+            beerData: null,
+            beerFound: false,
+            page: 0
         });
     }
 
@@ -55,9 +70,9 @@ class SearchTab extends Component {
                         <Unsplash 
                             width={width}
                             id={beerData.id} 
-                            name={beerData.user.first_name} 
+                            name={beerData.user.name} 
                             likes={beerData.likes} 
-                            image={beerData.regular} 
+                            image={beerData.urls.regular} 
                             description={beerData.description} 
                         />
                     </View> 
@@ -67,7 +82,7 @@ class SearchTab extends Component {
             return HorizontalView;
         } else {
             return (
-                <View style={{flex:1, height:400,width:400,marginTop:150}}>
+                <View style={{flex:1,marginTop:150}}>
                     <Text style={{textAlign: 'center'}}> Nothing Found </Text> 
                 </View>
             );
@@ -75,13 +90,13 @@ class SearchTab extends Component {
     }
 
     textChange(event){
-        const {eventCount, target, text} = event.nativeEvent;
+        const { text} = event.nativeEvent;
         this.setState({searchBeer: text});
     }
 
     scrollToEnd(){
         this.state.page +=1;
-        this.renderContent();
+        this.unSplashSearch();
     }
 
     render(){
@@ -97,9 +112,16 @@ class SearchTab extends Component {
                         { this.renderContent()  }   
                     </View>
                     <View>
-                    <Button block={true} onPress={ () => this.scrollToEnd() }>
-                        <Text style={{color: 'white'}}> Load more... </Text>
-                    </Button>
+
+                    {
+                        this.state.beerFound ?  
+                            <Button block={true} onPress={ () => this.scrollToEnd() }>
+                                <Text style={{color: 'white'}}> Load more... </Text>
+                            </Button>
+                        :
+                        null
+                    }
+                    
                     </View>
                 </Content>
             </Container>
