@@ -3,8 +3,7 @@ import { View, Text, StyleSheet , Keyboard, Dimensions ,ActivityIndicator } from
 import { Container, Content, Button } from 'native-base';
 import SearchHeader from './SearchHeader';
 import axios from "axios";
-import Unsplash from '../Unsplash/Unsplash';
-
+import Unsplash from './Unsplash/Unsplash';
 
 const { width } = Dimensions.get('window');
 
