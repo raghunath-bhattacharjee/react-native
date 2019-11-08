@@ -1,0 +1,53 @@
+[debug] [2019-11-08T08:25:00.384Z] ----------------------------------------------------------------------
+[debug] [2019-11-08T08:25:00.386Z] Command:       /home/raghu/.nvm/versions/node/v10.15.1/bin/node /home/raghu/.nvm/versions/node/v10.15.1/bin/firebase init
+[debug] [2019-11-08T08:25:00.387Z] CLI Version:   7.7.0
+[debug] [2019-11-08T08:25:00.387Z] Platform:      linux
+[debug] [2019-11-08T08:25:00.387Z] Node Version:  v10.15.1
+[debug] [2019-11-08T08:25:00.387Z] Time:          Fri Nov 08 2019 13:55:00 GMT+0530 (India Standard Time)
+[debug] [2019-11-08T08:25:00.387Z] ----------------------------------------------------------------------
+[debug] [2019-11-08T08:25:00.387Z] 
+[debug] [2019-11-08T08:25:00.393Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-08T08:25:00.393Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/raghu/code/react/Unspl_react_project
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2019-11-08T08:25:04.641Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-11-08T08:25:04.642Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-11-08T08:25:05.087Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-08T08:25:05.130Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects?pageSize=100  
+ 
+[debug] [2019-11-08T08:25:05.980Z] <<< HTTP RESPONSE 200
+[info] i  Using project react-firebase-12 (react-firebase)
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[info] ✔  Wrote public/404.html
+[debug] [2019-11-08T08:26:30.982Z] >>> HTTP REQUEST GET https://www.gstatic.com/firebasejs/releases.json  
+ 
+[debug] [2019-11-08T08:26:31.481Z] <<< HTTP RESPONSE 200
+[info] ✔  Wrote public/index.html
+[info] 
+[info] i  Writing configuration info to firebase.json...
+[info] i  Writing project information to .firebaserc...
+[info] 
+[info] ✔  Firebase initialization complete!

@@ -12,11 +12,7 @@ class HomeScreen extends Component {
     }
 
     componentDidMount(){
-        this.homeSCreenData();
-    }
-
-    homeSCreenData = () => {
-        const query = `https://api.unsplash.com/search/photos/?client_id=c33a5ccd2f9f0e1b59437149c6281f2486724e8856130cfbe216104e3686ba2e&query=cars&page=1`;
+        const query = `https://api.unsplash.com/search/photos/?client_id=c33a5ccd2f9f0e1b59437149c6281f2486724e8856130cfbe216104e3686ba2e&query=travel&page=1`;
         axios.get(query).then((responce) => {
             var data = responce.data ? responce.data.results : false;
         
@@ -45,7 +41,7 @@ class HomeScreen extends Component {
                     <View key = {index}>
                         <VerticalView 
                             imageUrl={beerData.urls.regular} 
-                            name={beerData.user.name} 
+                            name={beerData.user.first_name} 
                             desc={beerData.alt_description} 
                             width={width}
                         />
@@ -67,6 +63,24 @@ class HomeScreen extends Component {
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1 }}>
                     <ScrollView scrollEventThrottle={16}>
+                        <View style={{ height: 130, marginTop: 20, marginRight:15 }}>
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                                { this.populateView(1) }
+                            </ScrollView>
+                        </View>
+
+                        <View style={{ marginTop: 10, paddingHorizontal: 20 }}>
+                            <Text style={{ fontSize:24, fontWeight:'700' }}>
+                                Introdusing My Photo Gallery
+                            </Text>
+                            <Text style={{ fontWeight: '100' , marginTop:10}}>
+                                It specifies whether the children are visible or not.   
+                            </Text>
+                            <View style={{ width: width - 40, height: 200, marginTop: 20 }}>
+                                <Image style={ styles.imagView}  source={require('../../assets/home.jpg')} />
+                            </View>
+                        </View>
+
                         <View style={{ height: 130, marginTop: 20 }}>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                 { this.populateView(1) }
