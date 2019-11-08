@@ -60,8 +60,8 @@ class Unsplash extends Component {
                             <Text style={{ fontSize:15 }}>
                                 Name : { this.resizeName(this.props.name) } 
                             </Text>
-                            <Right onPress={ () => this.download(this.props.image) } style={{fontSize:15,marginLeft:53}}>
-                               <Text>Download : <Icon name="download" size={16} color="black" /></Text>
+                            <Right style={{fontSize:15,marginLeft:53}}>
+                               <Text>Download : <Icon name="download" size={16} color="black"  onPress={ () => this.download(this.props.image) } /></Text>
                             </Right>
                         </View>
                         <Text style={{ fontSize:12, paddingTop:9, paddingBottom:9 }}>

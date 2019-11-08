@@ -133,7 +133,7 @@ class SearchTab extends Component {
                         this.state.showLoadMoreBtn && this.state.beerFound ?  
                             <Button block={true} onPress={ () => this.loadMore() }  style={{ backgroundColor:'#03a9f4' }}>
                                 { this.state.isProgressButton ? <ActivityIndicator size="large" color="white" /> : null}
-                                <Text style={{color: 'white'}}> Load more... </Text>
+                                <Text style={{color: 'white'}}> Load More... </Text>
                             </Button>
                         :
                         null

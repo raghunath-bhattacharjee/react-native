@@ -1,5 +1,5 @@
 import React,{ Component } from "react";
-import { View, Text, StyleSheet, Dimensions, SafeAreaView, ScrollView , Image} from "react-native";
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, ScrollView , Image, Icon} from "react-native";
 import axios from "axios";
 import HorizontalView from './Horizontal';
 import VerticalView from './Vertical';
