@@ -1,7 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from 'react-navigation';
-import HomePage from './components/HomePage';
-import SearchTabNavigator from './components/SearchTabNavigator';
+import HomePage from './components/Home/HomePage';
 
 // import * as firebase from 'firebase';
 // const firebaseConfig = {
@@ -17,9 +16,6 @@ import SearchTabNavigator from './components/SearchTabNavigator';
 const App = createStackNavigator({
   HomeScreen: {
     screen: HomePage,
-  },
-  SearchTabNavigator: {
-    screen: SearchTabNavigator
   }
 },{
   tabBarOptions:{

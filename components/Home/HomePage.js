@@ -1,12 +1,16 @@
 import React,{ Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TabNavigator } from 'react-navigation';
+import SearchTab from '../Search/SearchTab';
 import { Footer, Footertab, Button, Icon } from 'native-base';
 import HomeScreen from '../screens/HomeScreenBody';
 
 const SearchTabNavigator = TabNavigator({
-    Search:{
+    HomeScreen:{
         screen: HomeScreen
+    },
+    SearchTab: {
+        screen: SearchTab
     }
 },{
     tabBarPosition: 'bottom',
@@ -14,22 +18,16 @@ const SearchTabNavigator = TabNavigator({
         return(
             <Footer>
                 <Footertab>
-                    <Button vertical onPress = { () => props.navigation.navigate('SearchTabNavigator')}>
-                        <Text>Search</Text>
+                    <Button vertical  onPress = { () => props.navigation.navigate('HomeScreen')}>
+                        <Text>HomeScreen</Text>
+                    </Button>
+
+                    <Button vertical onPress = { () => props.navigation.navigate('SearchTab') }>
+                        <Text>SearchTab</Text>
                     </Button>
                 </Footertab>
             </Footer>
         )
-    }
-},{
-    tabBarOptions: {
-        activeTintColor: '#e91e63',
-        labelStyle: {
-          fontSize: 12,
-        },
-        style: {
-          backgroundColor: 'blue',
-        },
     }
 });
 

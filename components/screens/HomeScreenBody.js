@@ -81,7 +81,7 @@ class HomeScreen extends Component {
                                 It specifies whether the children are visible or not.   
                             </Text>
                             <View style={{ width: width - 40, height: 200, marginTop: 20 }}>
-                                <Image style={ styles.imagView}  source={require('../assets/background.jpeg')} />
+                                <Image style={ styles.imagView}  source={require('../../assets/background.jpeg')} />
                             </View>
                         </View>
                         
