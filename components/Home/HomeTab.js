@@ -5,7 +5,7 @@ import SearchTab from '../Search/SearchTab';
 import { Footer, Footertab, Button, Icon } from 'native-base';
 import HomeScreen from '../screens/HomeScreenBody';
 
-const SearchTabNavigator = TabNavigator({
+export default TabNavigator({
     HomeScreen:{
         screen: HomeScreen
     },
@@ -30,5 +30,3 @@ const SearchTabNavigator = TabNavigator({
         )
     }
 });
-
-export default  SearchTabNavigator;
